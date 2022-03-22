@@ -8,13 +8,7 @@ public class MIDAccountManagerRegistrationProvider extends  MIDRegistrationProvi
 
     @Override
     public void evaluateTriggers(RequiredActionContext context) {
-//        UserModel user = context.getUser();
-//        if (user.getFirstAttribute("registered") == null) {
-//            Optional<String> reqActionSet = user.getRequiredActionsStream().filter(r -> PROVIDER_ID.equals(r)).findFirst();
-//            if (!reqActionSet.isPresent()) {
-//                user.addRequiredAction(PROVIDER_ID);
-//            }
-//        }
+
     }
 
 }
