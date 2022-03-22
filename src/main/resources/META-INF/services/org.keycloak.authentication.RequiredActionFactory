@@ -1,0 +1,3 @@
+com.bpanda.keycloak.requiredaction.MIDRegistrationRequiredActionFactory
+com.bpanda.keycloak.requiredaction.MIDAccountManagerRegistrationRequiredActionFactory
+com.bpanda.keycloak.requiredaction.MIDUpdatePasswordRequiredActionFactory
