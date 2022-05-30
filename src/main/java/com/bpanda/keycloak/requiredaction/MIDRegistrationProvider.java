@@ -44,6 +44,7 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
         MultivaluedMap<String, String> formData = context.getHttpRequest().getDecodedFormParameters();
         String lastName = formData.getFirst("lastName");
         String firstName = formData.getFirst("firstName");
+        String preferredLanguage = formData.getFirst("preferredLanguage");
 
         if (!checkInputField(lastName, context, "lastName") ||
                 !checkInputField(firstName, context, "firstName")) {
@@ -53,6 +54,9 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
         user.setLastName(lastName);
         user.setFirstName(firstName);
         user.setSingleAttribute("registered", "true");
+        if (null != preferredLanguage && !"".equals(preferredLanguage)) {
+            user.setSingleAttribute("preferredLanguage", preferredLanguage);
+        }
         AuthenticationSessionModel authSession = context.getAuthenticationSession();
 //        String an = authSession.getAuthNote(END_AFTER_REQUIRED_ACTIONS);
 //        an = authSession.getAuthNote(SET_REDIRECT_URI_AFTER_REQUIRED_ACTIONS);
@@ -79,6 +83,7 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
         form.setAttribute("email", user.getEmail());
         form.setAttribute("firstName", user.getFirstName());
         form.setAttribute("lastName", user.getLastName());
+        form.setAttribute("preferredLanguage", user.getAttributeStream("preferredLanguage").findFirst().orElse(""));
 //        String mobileNumber = context.getUser().getFirstAttribute(MOBILE_NUMBER_FIELD);
 //        form.setAttribute(MOBILE_NUMBER_FIELD, mobileNumber == null ? "" : mobileNumber);
 //
