@@ -22,13 +22,6 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
 
     @Override
     public void evaluateTriggers(RequiredActionContext context) {
-//        UserModel user = context.getUser();
-//        if (user.getFirstAttribute("registered") == null) {
-//            Optional<String> reqActionSet = user.getRequiredActionsStream().filter(r -> PROVIDER_ID.equals(r)).findFirst();
-//            if (!reqActionSet.isPresent()) {
-//                user.addRequiredAction(PROVIDER_ID);
-//            }
-//        }
     }
 
     @Override
@@ -56,6 +49,7 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
         user.setSingleAttribute("registered", "true");
         if (null != preferredLanguage && !"".equals(preferredLanguage)) {
             user.setSingleAttribute("preferredLanguage", preferredLanguage);
+            user.setSingleAttribute("locale", preferredLanguage);
         }
         AuthenticationSessionModel authSession = context.getAuthenticationSession();
 //        String an = authSession.getAuthNote(END_AFTER_REQUIRED_ACTIONS);
