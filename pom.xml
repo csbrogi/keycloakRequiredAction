@@ -79,7 +79,7 @@
                     <execution>
                         <phase>package</phase>
                         <goals>
-                            <goal>makeAggregateBom</goal>required-action
+                            <goal>makeAggregateBom</goal>
                         </goals>
                     </execution>
                 </executions>
