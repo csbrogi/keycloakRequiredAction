@@ -1,5 +1,7 @@
 package com.bpanda.keycloak.requiredaction;
 
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
 import org.keycloak.authentication.InitiatedActionSupport;
 import org.keycloak.authentication.RequiredActionContext;
 import org.keycloak.authentication.RequiredActionProvider;
@@ -10,8 +12,6 @@ import org.keycloak.models.*;
 import org.keycloak.models.utils.FormMessage;
 import org.keycloak.sessions.AuthenticationSessionModel;
 
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
 
 public class MIDUpdatePassword implements RequiredActionProvider {
     public static String PROVIDER_ID = "MIDUpdatePassword";
@@ -44,13 +44,11 @@ public class MIDUpdatePassword implements RequiredActionProvider {
     public void processAction(RequiredActionContext context) {
         EventBuilder event = context.getEvent();
         AuthenticationSessionModel authSession = context.getAuthenticationSession();
-        RealmModel realm = context.getRealm();
         UserModel user = context.getUser();
-        KeycloakSession session = context.getSession();
         MultivaluedMap<String, String> formData = context.getHttpRequest().getDecodedFormParameters();
         event.event(EventType.UPDATE_PASSWORD);
-        String passwordNew = (String)formData.getFirst("password-new");
-        String passwordConfirm = (String)formData.getFirst("password-confirm");
+        String passwordNew = formData.getFirst("password-new");
+        String passwordConfirm = formData.getFirst("password-confirm");
         EventBuilder errorEvent = event.clone().event(EventType.UPDATE_PASSWORD_ERROR).client(authSession.getClient()).user(authSession.getAuthenticatedUser());
         Response challenge;
         if (passwordNew == null || passwordNew.length() == 0) {
@@ -72,7 +70,9 @@ public class MIDUpdatePassword implements RequiredActionProvider {
 
 //            Response challenge;
             try {
-                session.userCredentialManager().updateCredential(realm, user, UserCredentialModel.password(passwordNew, false));
+//                authSession.
+                user.credentialManager().updateCredential(UserCredentialModel.password(passwordNew, false));
+//                session.userCredentialManager().updateCredential(realm, user, UserCredentialModel.password(passwordNew, false));
                 context.success();
             } catch (ModelException var13) {
                 errorEvent.detail("reason", var13.getMessage()).error("password_rejected");
