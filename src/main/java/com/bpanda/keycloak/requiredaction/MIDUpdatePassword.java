@@ -68,11 +68,8 @@ public class MIDUpdatePassword implements RequiredActionProvider {
 //                });
             }
 
-//            Response challenge;
             try {
-//                authSession.
                 user.credentialManager().updateCredential(UserCredentialModel.password(passwordNew, false));
-//                session.userCredentialManager().updateCredential(realm, user, UserCredentialModel.password(passwordNew, false));
                 context.success();
             } catch (ModelException var13) {
                 errorEvent.detail("reason", var13.getMessage()).error("password_rejected");
