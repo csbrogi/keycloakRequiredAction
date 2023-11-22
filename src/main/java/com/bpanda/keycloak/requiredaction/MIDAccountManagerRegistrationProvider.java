@@ -8,7 +8,6 @@ public class MIDAccountManagerRegistrationProvider extends  MIDRegistrationProvi
 
     @Override
     public void evaluateTriggers(RequiredActionContext context) {
-
     }
 
 }
