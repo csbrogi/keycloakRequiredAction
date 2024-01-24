@@ -21,7 +21,6 @@ public class MIDAccountManagerRegistrationRequiredActionFactory implements Requi
 
     @Override
     public void init(Config.Scope scope) {
-
     }
 
     @Override
