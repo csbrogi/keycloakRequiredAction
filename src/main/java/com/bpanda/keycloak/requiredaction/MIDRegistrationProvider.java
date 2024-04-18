@@ -77,7 +77,6 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
         form.setAttribute("email", user.getEmail());
         form.setAttribute("firstName", user.getFirstName());
         form.setAttribute("lastName", user.getLastName());
-        form.setAttribute("preferredLanguage", user.getAttributeStream("preferredLanguage").findFirst().orElse(""));
 //        String mobileNumber = context.getUser().getFirstAttribute(MOBILE_NUMBER_FIELD);
 //        form.setAttribute(MOBILE_NUMBER_FIELD, mobileNumber == null ? "" : mobileNumber);
 //

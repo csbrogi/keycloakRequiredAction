@@ -10,5 +10,5 @@ Handles the Actions MIDAccountManagerRegistration, MIDRegistration, MIDUpdatePas
 # Build and Test
 Build with _mvn package_
 
-# Installation
+#Installation
 Buid the targe and copy the file target/keycloak-required-action-jar-with-dependencies.jar or target/keycloak-required-action.jar to keycloak's providers directory
