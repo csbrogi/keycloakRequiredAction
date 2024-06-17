@@ -51,7 +51,7 @@ public class MIDUpdatePassword implements RequiredActionProvider {
         String passwordConfirm = formData.getFirst("password-confirm");
         EventBuilder errorEvent = event.clone().event(EventType.UPDATE_PASSWORD_ERROR).client(authSession.getClient()).user(authSession.getAuthenticatedUser());
         Response challenge;
-        if (passwordNew == null || passwordNew.length() == 0) {
+        if (passwordNew == null || passwordNew.isEmpty()) {
             challenge = context.form().setAttribute("username", authSession.getAuthenticatedUser().getUsername()).addError(new FormMessage("password", "missingPasswordMessage")).createResponse(UserModel.RequiredAction.UPDATE_PASSWORD);
             context.challenge(challenge);
             errorEvent.error("password_missing");
