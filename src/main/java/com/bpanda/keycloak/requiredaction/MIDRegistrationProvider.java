@@ -22,13 +22,6 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
 
     @Override
     public void evaluateTriggers(RequiredActionContext context) {
-//        UserModel user = context.getUser();
-//        if (user.getFirstAttribute("registered") == null) {
-//            Optional<String> reqActionSet = user.getRequiredActionsStream().filter(r -> PROVIDER_ID.equals(r)).findFirst();
-//            if (!reqActionSet.isPresent()) {
-//                user.addRequiredAction(PROVIDER_ID);
-//            }
-//        }
     }
 
     @Override
@@ -44,6 +37,7 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
         MultivaluedMap<String, String> formData = context.getHttpRequest().getDecodedFormParameters();
         String lastName = formData.getFirst("lastName");
         String firstName = formData.getFirst("firstName");
+        String preferredLanguage = formData.getFirst("preferredLanguage");
 
         if (!checkInputField(lastName, context, "lastName") ||
                 !checkInputField(firstName, context, "firstName")) {
@@ -53,6 +47,10 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
         user.setLastName(lastName);
         user.setFirstName(firstName);
         user.setSingleAttribute("registered", "true");
+        if (null != preferredLanguage && !"".equals(preferredLanguage)) {
+            user.setSingleAttribute("preferredLanguage", preferredLanguage);
+            user.setSingleAttribute("locale", preferredLanguage);
+        }
         AuthenticationSessionModel authSession = context.getAuthenticationSession();
 //        String an = authSession.getAuthNote(END_AFTER_REQUIRED_ACTIONS);
 //        an = authSession.getAuthNote(SET_REDIRECT_URI_AFTER_REQUIRED_ACTIONS);
@@ -61,7 +59,7 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
     }
 
     private boolean checkInputField(String field, RequiredActionContext context, String fieldName) {
-        if (field == null || field.length() == 0) {
+        if (field == null || field.isEmpty()) {
             context.challenge(createForm(context, form -> form.addError(new FormMessage(fieldName, "Invalid input"))));
             return false;
         }
