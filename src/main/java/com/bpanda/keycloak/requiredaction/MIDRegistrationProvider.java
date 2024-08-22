@@ -59,7 +59,7 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
     }
 
     private boolean checkInputField(String field, RequiredActionContext context, String fieldName) {
-        if (field == null || field.length() == 0) {
+        if (field == null || field.isEmpty()) {
             context.challenge(createForm(context, form -> form.addError(new FormMessage(fieldName, "Invalid input"))));
             return false;
         }
