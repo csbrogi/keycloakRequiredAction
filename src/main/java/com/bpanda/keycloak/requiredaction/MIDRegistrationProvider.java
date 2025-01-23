@@ -47,7 +47,7 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
         user.setLastName(lastName);
         user.setFirstName(firstName);
         user.setSingleAttribute("registered", "true");
-        if (null != preferredLanguage && !"".equals(preferredLanguage)) {
+        if (null != preferredLanguage && !preferredLanguage.isEmpty()) {
             user.setSingleAttribute("preferredLanguage", preferredLanguage);
             user.setSingleAttribute("locale", preferredLanguage);
         }
