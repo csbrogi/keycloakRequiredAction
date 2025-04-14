@@ -9,12 +9,14 @@ import org.keycloak.forms.login.LoginFormsProvider;
 import org.keycloak.models.UserModel;
 import org.keycloak.models.utils.FormMessage;
 import org.keycloak.sessions.AuthenticationSessionModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.function.Consumer;
 
 public class MIDRegistrationProvider implements RequiredActionProvider {
     public static String PROVIDER_ID = "MIDRegistration";
-
+    protected static final Logger log = LoggerFactory.getLogger(MIDRegistrationProvider.class);
     @Override
     public InitiatedActionSupport initiatedActionSupport() {
         return InitiatedActionSupport.SUPPORTED;
@@ -38,7 +40,7 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
         String lastName = formData.getFirst("lastName");
         String firstName = formData.getFirst("firstName");
         String preferredLanguage = formData.getFirst("preferredLanguage");
-
+        log.info(String.format("processAction user: %s lastName: %s firstName: %s preferredLanguage: %s", user.getUsername(), lastName, firstName, preferredLanguage));
         if (!checkInputField(lastName, context, "lastName") ||
                 !checkInputField(firstName, context, "firstName")) {
             return;
@@ -77,6 +79,7 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
         form.setAttribute("email", user.getEmail());
         form.setAttribute("firstName", user.getFirstName());
         form.setAttribute("lastName", user.getLastName());
+        log.info(String.format("createForm user: %s", user.getUsername()));
 //        String mobileNumber = context.getUser().getFirstAttribute(MOBILE_NUMBER_FIELD);
 //        form.setAttribute(MOBILE_NUMBER_FIELD, mobileNumber == null ? "" : mobileNumber);
 //
