@@ -8,7 +8,6 @@ import org.keycloak.authentication.RequiredActionProvider;
 import org.keycloak.forms.login.LoginFormsProvider;
 import org.keycloak.models.UserModel;
 import org.keycloak.models.utils.FormMessage;
-import org.keycloak.sessions.AuthenticationSessionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +39,7 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
         String lastName = formData.getFirst("lastName");
         String firstName = formData.getFirst("firstName");
         String preferredLanguage = formData.getFirst("preferredLanguage");
-        log.info(String.format("processAction user: %s lastName: %s firstName: %s preferredLanguage: %s", user.getUsername(), lastName, firstName, preferredLanguage));
+        log.info("processAction user: {} lastName: {} firstName: {} preferredLanguage: {}", user.getUsername(), lastName, firstName, preferredLanguage);
         if (!checkInputField(lastName, context, "lastName") ||
                 !checkInputField(firstName, context, "firstName")) {
             return;
@@ -53,9 +52,6 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
             user.setSingleAttribute("preferredLanguage", preferredLanguage);
             user.setSingleAttribute("locale", preferredLanguage);
         }
-        AuthenticationSessionModel authSession = context.getAuthenticationSession();
-//        String an = authSession.getAuthNote(END_AFTER_REQUIRED_ACTIONS);
-//        an = authSession.getAuthNote(SET_REDIRECT_URI_AFTER_REQUIRED_ACTIONS);
 
         context.success();
     }
@@ -79,7 +75,7 @@ public class MIDRegistrationProvider implements RequiredActionProvider {
         form.setAttribute("email", user.getEmail());
         form.setAttribute("firstName", user.getFirstName());
         form.setAttribute("lastName", user.getLastName());
-        log.info(String.format("createForm user: %s", user.getUsername()));
+        log.info("createForm user: {}", user.getUsername());
 //        String mobileNumber = context.getUser().getFirstAttribute(MOBILE_NUMBER_FIELD);
 //        form.setAttribute(MOBILE_NUMBER_FIELD, mobileNumber == null ? "" : mobileNumber);
 //
