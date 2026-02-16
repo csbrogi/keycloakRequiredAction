@@ -62,7 +62,7 @@ public class MIDUpdatePassword implements RequiredActionProvider {
 
         String passwordNew = formData.getFirst("password-new");
         String passwordConfirm = formData.getFirst("password-confirm");
-        log.info(String.format("processAction user: %s", user.getUsername()));
+        log.info("processAction user: {}", user.getUsername());
 
         EventBuilder errorEvent = event.clone().event(EventType.UPDATE_CREDENTIAL_ERROR)
                 .client(authSession.getClient())
@@ -77,7 +77,7 @@ public class MIDUpdatePassword implements RequiredActionProvider {
             context.challenge(challenge);
             errorEvent.error(Errors.PASSWORD_MISSING);
             deprecatedErrorEvent.error(Errors.PASSWORD_MISSING);
-            log.error("User: " + user.getUsername() +" Password is missing");
+            log.error("User: {} Password is missing", user.getUsername());
             return;
         } else if (!passwordNew.equals(passwordConfirm)) {
             Response challenge = context.form()
@@ -87,7 +87,7 @@ public class MIDUpdatePassword implements RequiredActionProvider {
             context.challenge(challenge);
             errorEvent.error(Errors.PASSWORD_CONFIRM_ERROR);
             deprecatedErrorEvent.error(Errors.PASSWORD_CONFIRM_ERROR);
-            log.error("User: " + user.getUsername() +" Passwords do not match");
+            log.error("User: {} Passwords do not match", user.getUsername());
             return;
         }
 
